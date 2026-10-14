@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Support &amp; Help Center — Revive: AI Dream Journal</title>
+  <meta name="description" content="Get help with Revive for iOS. Find guides for account deletion, subscription management, microphone permissions, and contact our support team.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <style>
+    .support-hero {
+      text-align: center;
+      padding: 4rem 1rem 3rem;
+    }
+    .support-hero h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.25rem);
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, #ffffff 40%, #94a3b8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .support-hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      margin: 0 auto 2rem;
+    }
+    .contact-banner {
+      background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(168, 85, 247, 0.12) 100%);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      max-width: 800px;
+      margin: 0 auto 4rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.25rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    .contact-banner-email {
+      font-family: monospace;
+      font-size: 1.25rem;
+      color: var(--accent-cyan);
+      background: rgba(0, 0, 0, 0.4);
+      padding: 0.6rem 1.2rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+    }
+    .support-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .support-card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: var(--radius-md);
+      padding: 2rem;
+      transition: all var(--transition-smooth);
+    }
+    .support-card:hover {
+      border-color: rgba(99, 102, 241, 0.3);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+    .support-card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius-sm);
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      color: var(--primary-light);
+    }
+    .support-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+    .support-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .step-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 1rem;
+    }
+    .step-item {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .step-number {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: rgba(99, 102, 241, 0.2);
+      color: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .faq-list {
+      max-width: 860px;
+      margin: 0 auto 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .faq-item {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: all var(--transition-fast);
+    }
+    .faq-question {
+      width: 100%;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      font-size: 1.05rem;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+    }
+    .faq-icon {
+      transition: transform var(--transition-fast);
+      color: var(--primary-light);
+      flex-shrink: 0;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(180deg);
+    }
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="top">
+    <div class="container">
+      <nav class="nav-wrapper" aria-label="Main Navigation">
+        <a href="../" class="brand-logo" id="logoLink">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoGrad" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#818cf8"/>
+                <stop offset="0.5" stop-color="#a855f7"/>
+                <stop offset="1" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+            <path d="M25.5 16C25.5 21.799 20.799 26.5 15 26.5C11.59 26.5 8.57 24.87 6.68 22.33C6.18 21.67 6.64 20.73 7.46 20.73C13.26 20.73 17.96 16.03 17.96 10.23C17.96 9.41 18.9 8.95 19.56 9.45C23.13 12.11 25.5 16.32 25.5 16Z" fill="url(#logoGrad)"/>
+            <circle cx="21" cy="7" r="1.5" fill="#f8fafc"/>
+            <circle cx="25.5" cy="11.5" r="1" fill="#38bdf8"/>
+          </svg>
+          <span>Revive</span>
+          <span class="brand-badge">Help Center</span>
+        </a>
+
+        <ul class="nav-links" id="primaryNav">
+          <li><a href="../" class="nav-link">Home</a></li>
+          <li><a href="../privacy-policy/" class="nav-link">Privacy Policy</a></li>
+          <li><a href="../terms-and-conditions/" class="nav-link">Terms &amp; Conditions</a></li>
+          <li><a href="./" class="nav-link active" aria-current="page">Support</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <button class="btn btn-sm btn-primary" onclick="copyEmail()" id="supportHeaderEmailBtn">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Contact Support
+          </button>
+          <button class="mobile-menu-btn" aria-label="Toggle navigation menu" id="mobileMenuToggle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Breadcrumbs -->
+  <div class="container">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <a href="../">Home</a>
+      <span class="breadcrumb-separator">/</span>
+      <span class="breadcrumb-current">Support &amp; Help Center</span>
+    </nav>
+  </div>
+
+  <!-- Support Hero -->
+  <section class="support-hero">
+    <div class="container">
+      <h1 id="supportMainTitle">How Can We Help You?</h1>
+      <p>Need assistance with your dream archive, Apple subscription, account deletion, or technical troubleshooting? Our support team is here to help.</p>
+
+      <!-- Direct Contact Banner -->
+      <div class="contact-banner">
+        <div style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary-light); font-weight: 700;">
+          Direct Email Support
+        </div>
+        <div class="contact-banner-email">reviveappsupport@gmail.com</div>
+        <p style="margin: 0; color: var(--text-muted); font-size: 0.95rem;">
+          Our dedicated team typically replies within 24–48 business hours.
+        </p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;">
+          <a href="mailto:reviveappsupport@gmail.com" class="btn btn-primary" id="sendMailDirectBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Send Email
+          </a>
+          <button class="btn btn-secondary" onclick="copyEmail()" id="copyMailAddressBtn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy Address
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Help Categories Grid -->
+  <section class="container" id="guides">
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <h2>Popular Help Topics</h2>
+      <p style="color: var(--text-muted);">Step-by-step guidance for managing Revive on your iOS device</p>
+    </div>
+
+    <div class="support-grid">
+
+      <!-- Topic 1: Account & Deletion -->
+      <article class="support-card" id="account-deletion">
+        <div class="support-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </div>
+        <h3>Account &amp; Data Deletion</h3>
+        <p>You have full ownership of your data. You can delete individual dreams or your entire account at any time.</p>
+        <ul class="step-list">
+          <li class="step-item">
+            <span class="step-number">1</span>
+            <span>Open Revive on your iPhone and go to <strong>Profile / Settings</strong>.</span>
+          </li>
+          <li class="step-item">
+            <span class="step-number">2</span>
+            <span>Tap <strong>Account</strong> and select <strong>Delete Account</strong>.</span>
+          </li>
+          <li class="step-item">
+            <span class="step-number">3</span>
+            <span>Or email <strong>reviveappsupport@gmail.com</strong> with your user email/ID. We delete or de-identify personal data within 30 days.</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Topic 2: Subscriptions & Apple Billing -->
+      <article class="support-card" id="subscriptions">
+        <div class="support-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+        </div>
+        <h3>Managing Subscriptions &amp; Billing</h3>
+        <p>All purchases and renewals are securely processed by Apple via your Apple ID.</p>
+        <ul class="step-list">
+          <li class="step-item">
+            <span class="step-number">1</span>
+            <span>Open iPhone <strong>Settings</strong> and tap your <strong>Apple ID name</strong> at the top.</span>
+          </li>
+          <li class="step-item">
+            <span class="step-number">2</span>
+            <span>Tap <strong>Subscriptions</strong>, then select <strong>Revive</strong>.</span>
+          </li>
+          <li class="step-item">
+            <span class="step-number">3</span>
+            <span>Tap <strong>Cancel Subscription</strong> at least 24 hours before the renewal date to avoid auto-renewal charges.</span>
+          </li>
+        </ul>
+      </article>
+
+      <!-- Topic 3: Voice Recording & Permissions -->
+      <article class="support-card" id="permissions">
+        <div class="support-card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+        </div>
+        <h3>Microphone &amp; Permissions</h3>
+        <p>Revive allows you to speak your dream immediately upon waking for voice-to-text transcription.</p>
+        <ul class="step-list">
+          <li class="step-item">
+            <span class="step-number">1</span>
+            <span>Microphone is strictly used when you tap the record button to capture a dream.</span>
+          </li>
+          <li class="step-item">
+            <span class="step-number">2</span>
+            <span>Revive never listens in the background or collects unsolicited audio.</span>
+          </li>
+          <li class="step-item">
+            <span class="step-number">3</span>
+            <span>You can toggle permissions anytime in iPhone <strong>Settings &gt; Revive &gt; Microphone</strong>.</span>
+          </li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="container" id="faq">
+    <div style="text-align: center; margin-bottom: 2.5rem;">
+      <h2>Frequently Asked Questions</h2>
+      <p style="color: var(--text-muted);">Quick answers to common questions about Revive</p>
+    </div>
+
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <button class="faq-question" id="faq-1-btn">
+          <span>Are my dreams private and secure?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Yes. Your dreams are private by default and are never made public or visible to other users without your explicit sharing action. We use encryption in transit and at rest, and we do not sell your personal data or use your dream text to train public AI models.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" id="faq-2-btn">
+          <span>Does deleting the app cancel my subscription?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>No. Deleting the Revive app from your iPhone does not cancel an active subscription. Because payments are handled through Apple, you must cancel your subscription via your iOS device: Settings &gt; Apple ID &gt; Subscriptions &gt; Revive &gt; Cancel Subscription.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" id="faq-3-btn">
+          <span>How do I request a refund?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>Since all iOS transactions and subscriptions are billed through Apple's App Store, Revive does not have direct access to your payment card or billing mechanism. To request a refund, visit Apple's official portal at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">reportaproblem.apple.com</a>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" id="faq-4-btn">
+          <span>Is Revive's AI interpretation a form of therapy or diagnosis?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>No. Revive is designed purely for personal reflection and entertainment. It does not provide medical, psychological, psychiatric, or therapeutic advice, nor does it diagnose or treat any health condition. If your sleep or dreams cause distress, please consult a healthcare professional.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" id="faq-5-btn">
+          <span>How can I delete individual dreams or my whole account?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>You can delete individual dreams directly within your dream archive list inside the app. For full account deletion, you can tap Delete Account in the app settings or email us at <a href="mailto:reviveappsupport@gmail.com">reviveappsupport@gmail.com</a>. We will process your deletion within 30 days.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="../" class="brand-logo">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <path d="M25.5 16C25.5 21.799 20.799 26.5 15 26.5C11.59 26.5 8.57 24.87 6.68 22.33C6.18 21.67 6.64 20.73 7.46 20.73C13.26 20.73 17.96 16.03 17.96 10.23C17.96 9.41 18.9 8.95 19.56 9.45C23.13 12.11 25.5 16.32 25.5 16Z" fill="url(#logoGrad)"/>
+            </svg>
+            <span>Revive</span>
+          </a>
+          <p>The intuitive AI dream journal and reflection companion for iOS. Record, decode, and transform your subconscious nightscapes.</p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="../privacy-policy/">Privacy Policy</a></li>
+            <li><a href="../terms-and-conditions/">Terms &amp; Conditions</a></li>
+            <li><a href="../privacy-policy/#section-4">Data Practices</a></li>
+            <li><a href="../privacy-policy/#section-8">Your Privacy Rights</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Product</h4>
+          <ul class="footer-links">
+            <li><a href="../#features">Core Features</a></li>
+            <li><a href="../#how-it-works">How It Works</a></li>
+            <li><a href="../#faq">FAQ</a></li>
+            <li><a href="./">Support Center</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Support &amp; Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:reviveappsupport@gmail.com">reviveappsupport@gmail.com</a></li>
+            <li><a href="#account-deletion">Account Deletion</a></li>
+            <li><a href="#subscriptions">Subscription Help</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-disclaimer">
+          Revive is designed for personal reflection and entertainment. It does not provide medical, psychological, diagnostic, or therapeutic advice.
+        </div>
+        <div>
+          &copy; 2026 Revive. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top" id="backToTopBtn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

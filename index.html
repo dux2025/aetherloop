@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Revive — AI Dream Journal &amp; Subconscious Insights for iOS</title>
+  <meta name="description" content="Capture, transcribe, and decode your dreams with Revive. Powered by next-gen AI interpretations, visual dreamscapes, pattern tracking, and lucid dreaming tools.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌙</text></svg>">
+  <style>
+    /* Homepage Specific Styles */
+    .hero-section {
+      padding: 5rem 0 4rem;
+      text-align: center;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(99, 102, 241, 0.12);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: var(--primary-light);
+      padding: 0.4rem 1rem;
+      border-radius: var(--radius-full);
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(10px);
+    }
+    .hero-title {
+      font-size: clamp(2.5rem, 5.5vw, 4.2rem);
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, #ffffff 40%, #a5b4fc 80%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-desc {
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+    }
+    .hero-cta-group {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+    }
+    .app-store-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #000000;
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      text-decoration: none;
+      transition: all var(--transition-fast);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+    .app-store-badge:hover {
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4);
+      color: #ffffff;
+    }
+    .badge-icon svg {
+      width: 26px;
+      height: 26px;
+      fill: #ffffff;
+    }
+    .badge-text {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+      line-height: 1.15;
+    }
+    .badge-sub {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.8;
+    }
+    .badge-main {
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    /* Dynamic Mockup Card */
+    .mockup-container {
+      max-width: 820px;
+      margin: 0 auto;
+      perspective: 1000px;
+    }
+    .mockup-card {
+      background: linear-gradient(135deg, rgba(20, 28, 48, 0.85) 0%, rgba(13, 19, 34, 0.95) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), 0 0 50px rgba(99, 102, 241, 0.2);
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #818cf8, #a855f7, transparent);
+    }
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .mockup-user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .mockup-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #6366f1, #ec4899);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .mockup-tag {
+      font-size: 0.75rem;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-cyan);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-weight: 600;
+    }
+    .mockup-dream-quote {
+      font-family: var(--font-heading);
+      font-size: 1.25rem;
+      font-style: italic;
+      color: #e2e8f0;
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+    .mockup-audio-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-full);
+      margin-bottom: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .waveform-bars {
+      display: flex;
+      align-items: center;
+      gap: 3px;
+      height: 16px;
+    }
+    .bar {
+      width: 3px;
+      background: var(--primary-light);
+      border-radius: 2px;
+      animation: pulseWave 1.4s ease-in-out infinite alternate;
+    }
+    .bar:nth-child(1) { height: 8px; animation-delay: 0.1s; }
+    .bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+    .bar:nth-child(3) { height: 6px; animation-delay: 0.2s; }
+    .bar:nth-child(4) { height: 16px; animation-delay: 0.4s; }
+    .bar:nth-child(5) { height: 10px; animation-delay: 0.15s; }
+    .bar:nth-child(6) { height: 13px; animation-delay: 0.25s; }
+
+    @keyframes pulseWave {
+      0% { transform: scaleY(0.5); opacity: 0.6; }
+      100% { transform: scaleY(1.2); opacity: 1; }
+    }
+
+    .mockup-ai-box {
+      background: rgba(99, 102, 241, 0.08);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+    .mockup-ai-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--primary-light);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .mockup-ai-text {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* Features Grid */
+    .section-title-wrap {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+    .section-eyebrow {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--primary-light);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 6rem;
+    }
+    .feature-card {
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem;
+      transition: all var(--transition-smooth);
+      position: relative;
+    }
+    .feature-card:hover {
+      border-color: rgba(99, 102, 241, 0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 30px rgba(99, 102, 241, 0.15);
+    }
+    .feature-icon-wrap {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      color: var(--primary-light);
+    }
+    .feature-card h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.75rem;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+    }
+
+    /* Privacy Banner Highlight */
+    .privacy-highlight-section {
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(99, 102, 241, 0.08) 100%);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 3rem;
+      margin-bottom: 6rem;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+    .privacy-badges-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .privacy-badge-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+      background: rgba(0, 0, 0, 0.25);
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* How It Works Steps */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 6rem;
+    }
+    .step-card {
+      background: var(--surface-glass);
+      border: 1px solid var(--surface-glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.25rem 2rem;
+      position: relative;
+    }
+    .step-pill {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: var(--primary-light);
+      background: rgba(99, 102, 241, 0.15);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--radius-full);
+      display: inline-block;
+      margin-bottom: 1.25rem;
+    }
+
+    @media (max-width: 900px) {
+      .privacy-highlight-section {
+        grid-template-columns: 1fr;
+      }
+      .steps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow Effects -->
+  <div class="bg-ambient" aria-hidden="true">
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+    <div class="ambient-orb orb-3"></div>
+  </div>
+
+  <!-- Header -->
+  <header class="site-header" id="top">
+    <div class="container">
+      <nav class="nav-wrapper" aria-label="Main Navigation">
+        <a href="./" class="brand-logo" id="logoLink">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoGrad" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#818cf8"/>
+                <stop offset="0.5" stop-color="#a855f7"/>
+                <stop offset="1" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+            <path d="M25.5 16C25.5 21.799 20.799 26.5 15 26.5C11.59 26.5 8.57 24.87 6.68 22.33C6.18 21.67 6.64 20.73 7.46 20.73C13.26 20.73 17.96 16.03 17.96 10.23C17.96 9.41 18.9 8.95 19.56 9.45C23.13 12.11 25.5 16.32 25.5 16Z" fill="url(#logoGrad)"/>
+            <circle cx="21" cy="7" r="1.5" fill="#f8fafc"/>
+            <circle cx="25.5" cy="11.5" r="1" fill="#38bdf8"/>
+          </svg>
+          <span>Revive</span>
+          <span class="brand-badge">iOS</span>
+        </a>
+
+        <ul class="nav-links" id="primaryNav">
+          <li><a href="./" class="nav-link active" aria-current="page">Home</a></li>
+          <li><a href="#features" class="nav-link">Features</a></li>
+          <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+          <li><a href="./privacy-policy/" class="nav-link">Privacy Policy</a></li>
+          <li><a href="./terms-and-conditions/" class="nav-link">Terms</a></li>
+          <li><a href="./support/" class="nav-link">Support</a></li>
+        </ul>
+
+        <div class="nav-actions">
+          <a href="#download" class="btn btn-sm btn-primary" id="headerCtaBtn">Download</a>
+          <button class="mobile-menu-btn" aria-label="Toggle navigation menu" id="mobileMenuToggle">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        AI Dream Journal &amp; Subconscious Explorer
+      </div>
+
+      <h1 class="hero-title">Decode Your Dreams.<br>Understand Your Subconscious.</h1>
+      
+      <p class="hero-desc">
+        Revive transforms your nightly dreams into vivid AI interpretations, stunning visual art, cinematic video recreations, and recurring emotional insights. Private, secure, and made for reflection.
+      </p>
+
+      <div class="hero-cta-group" id="download">
+        <a href="https://apps.apple.com" target="_blank" rel="noopener noreferrer" class="app-store-badge" id="heroAppStoreBtn">
+          <span class="badge-icon">
+            <svg viewBox="0 0 170 170">
+              <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.66-7.85-11.9-14.42-6-9.15-10.79-19.46-14.34-30.93-3.55-11.47-5.32-22.38-5.32-32.75 0-14.46 3.73-26.68 11.2-36.67 7.46-9.98 16.92-15.08 28.36-15.3 4.8 0 10.15 1.25 16.06 3.75 5.91 2.5 9.77 3.86 11.59 4.09 1.63-.23 5.76-1.65 12.39-4.25 6.63-2.61 12.21-3.72 16.73-3.34 12.4.65 22.42 5.37 30.06 14.16-10.79 6.54-16.08 15.48-15.86 26.83.22 8.93 3.65 16.48 10.3 22.65 6.64 6.17 14.54 9.69 23.7 10.56-2.17 6.54-4.89 13.23-8.14 20.08zM119.22 33.15c0-7.39 2.66-14.14 7.97-20.25 5.31-6.11 11.83-9.87 19.55-11.29.22 1.09.33 2.07.33 2.94 0 7.39-2.77 14.36-8.31 20.91-5.54 6.54-12.06 10.12-19.54 10.73-.22-.98-.33-2.01-.33-3.04z"/>
+            </svg>
+          </span>
+          <span class="badge-text">
+            <span class="badge-sub">Download on the</span>
+            <span class="badge-main">App Store</span>
+          </span>
+        </a>
+        <a href="#features" class="btn btn-secondary btn-lg" id="exploreFeaturesBtn">Explore Features &rarr;</a>
+        <a href="./privacy-policy/" class="btn btn-outline btn-lg" id="viewPrivacyBtn">Our Privacy Pledge</a>
+      </div>
+
+      <!-- Dream Showcase Mockup -->
+      <div class="mockup-container">
+        <div class="mockup-card">
+          <div class="mockup-header">
+            <div class="mockup-user-info">
+              <div class="mockup-avatar">🌙</div>
+              <div>
+                <strong style="color: #ffffff; display: block; font-size: 0.95rem;">Morning Dream Reflection</strong>
+                <span style="font-size: 0.8rem; color: var(--text-muted);">Recorded at 7:14 AM &bull; Voice Transcribed</span>
+              </div>
+            </div>
+            <span class="mockup-tag">Lucid Score: 88%</span>
+          </div>
+
+          <div class="mockup-dream-quote">
+            “I found myself soaring over a bioluminescent sapphire ocean. Crystalline towers rose from the water, glowing in cadence with my breath...”
+          </div>
+
+          <div class="mockup-audio-pill">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+            <span>Voice Memo (0:48)</span>
+            <div class="waveform-bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+
+          <div class="mockup-ai-box">
+            <div class="mockup-ai-title">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 2l2 7h7l-5.5 4.5 2 7L12 16l-5.5 4.5 2-7L3 9h7z"/>
+              </svg>
+              Revive AI Subconscious Interpretation
+            </div>
+            <p class="mockup-ai-text">
+              The crystal towers symbolize clarity emerging from emotional depths (the ocean). Your synchronized breath indicates growing lucid awareness and mental autonomy in your waking life. Recurring symbol: <strong>Water / Transformation</strong>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="container" id="how-it-works" style="padding-top: 4rem;">
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Seamless Flow</div>
+      <h2>How Revive Works</h2>
+      <p style="color: var(--text-muted); max-width: 580px; margin: 0 auto;">Capture delicate morning memories before they evaporate.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <span class="step-pill">Step 01</span>
+        <h3>Speak or Type</h3>
+        <p>Wake up and tap record. Speak your dream freely using voice transcription, or type with notes, mood tags, and sleep quality.</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-pill">Step 02</span>
+        <h3>AI Interpretation</h3>
+        <p>Advanced models analyze psychological archetypes, emotions, and symbolic themes, generating custom interpretations and visual art.</p>
+      </div>
+
+      <div class="step-card">
+        <span class="step-pill">Step 03</span>
+        <h3>Track &amp; Awaken</h3>
+        <p>Build your encrypted dream archive. Uncover recurring patterns, cultivate lucid awareness, and reflect on your inner journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="container" id="features">
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Crafted for Sleepers &amp; Seekers</div>
+      <h2>Designed for Deep Reflection</h2>
+      <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto;">Everything you need to record, understand, and explore your subconscious universe.</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+        </div>
+        <h3>Voice-to-Text Recording</h3>
+        <p>Recall your dream the second you open your eyes. Speak naturally while our voice engine transcribes every nuance into text.</p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+            <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+            <line x1="12" y1="22.08" x2="12" y2="12"></line>
+          </svg>
+        </div>
+        <h3>AI Dream Interpretation</h3>
+        <p>Uncover layers of symbolism, psychological archetypes, emotional undertones, and recurring narrative motifs in your dreamscape.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+        </div>
+        <h3>Visual Dreamscapes &amp; Videos</h3>
+        <p>Watch your dreams materialize with generative dream imagery and atmospheric videos that bring subconscious worlds to life.</p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="20" x2="18" y2="10"></line>
+            <line x1="12" y1="20" x2="12" y2="4"></line>
+            <line x1="6" y1="20" x2="6" y2="14"></line>
+          </svg>
+        </div>
+        <h3>Pattern &amp; Theme Analytics</h3>
+        <p>Map recurring characters, settings, and feelings over weeks and months. Gain a bird’s-eye perspective on subconscious shifts.</p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+            <path d="M2 12h20"></path>
+          </svg>
+        </div>
+        <h3>Lucid Dreaming Guidance</h3>
+        <p>Cultivate mindful sleeping habits with tailored reality-check reminders, wake-back-to-bed protocols, and lucidity indicators.</p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feature-card">
+        <div class="feature-icon-wrap">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+          </svg>
+        </div>
+        <h3>Private &amp; Secure by Default</h3>
+        <p>Your dreams are private. We never sell your personal information, train public AI models on your dreams, or run invasive ads.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy & Trust Highlight Section -->
+  <section class="container">
+    <div class="privacy-highlight-section">
+      <div>
+        <div class="section-eyebrow" style="color: var(--accent-emerald);">Privacy First Architecture</div>
+        <h2 style="margin-bottom: 1rem;">Your subconscious thoughts belong to you alone.</h2>
+        <p style="color: var(--text-muted); font-size: 1.05rem; margin-bottom: 1.75rem;">
+          We founded Revive with a steadfast conviction: a dream journal must be a sanctuary. We process your data solely to deliver interpretations and features you ask for.
+        </p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="./privacy-policy/" class="btn btn-primary" id="readPrivacyPolicyBtn">Read Full Privacy Policy &rarr;</a>
+          <a href="./terms-and-conditions/" class="btn btn-secondary" id="readTermsBtn">Terms and Conditions</a>
+        </div>
+      </div>
+
+      <div class="privacy-badges-grid">
+        <div class="privacy-badge-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span><strong>Zero AI Training:</strong> Dream journals never train public AI</span>
+        </div>
+        <div class="privacy-badge-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span><strong>Private by Default:</strong> No public feeds, no uninvited sharing</span>
+        </div>
+        <div class="privacy-badge-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span><strong>No Cross-App Ads:</strong> We never sell your data to brokers</span>
+        </div>
+        <div class="privacy-badge-item">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span><strong>Full Control:</strong> Instant dream or account deletion anytime</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Homepage FAQ -->
+  <section class="container" id="faq" style="padding-bottom: 4rem;">
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Common Questions</div>
+      <h2>Frequently Asked Questions</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-question" id="home-faq-1">
+          <span>How does the voice recording feature work?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>When you wake up, open Revive and tap the microphone button. Your audio is captured and transcribed into text using secure voice recognition. Revive only accesses your microphone when you actively record, and never listens in the background.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" id="home-faq-2">
+          <span>Does Revive sell or monetize my dream data?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>No. We do not sell your personal information, share it for cross-context behavioral advertising, or use your dream content to train our own or third-party AI models. Learn more in our <a href="./privacy-policy/">Privacy Policy</a>.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" id="home-faq-3">
+          <span>Are AI interpretations medical or psychiatric diagnoses?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>No. Revive is designed for personal reflection, creative inspiration, and entertainment. It does not provide medical, psychological, psychiatric, or therapeutic advice, nor does it diagnose, treat, or prevent any medical or mental health condition.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" id="home-faq-4">
+          <span>How are subscription payments and renewals handled?</span>
+          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div class="faq-answer">
+          <p>All subscription payments are charged through your Apple ID and managed in your Apple Account settings. You can manage or cancel your subscription at any time in iPhone Settings &gt; Apple ID &gt; Subscriptions. Deleting the app does not automatically cancel an active Apple subscription.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="./" class="brand-logo">
+            <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+              <path d="M25.5 16C25.5 21.799 20.799 26.5 15 26.5C11.59 26.5 8.57 24.87 6.68 22.33C6.18 21.67 6.64 20.73 7.46 20.73C13.26 20.73 17.96 16.03 17.96 10.23C17.96 9.41 18.9 8.95 19.56 9.45C23.13 12.11 25.5 16.32 25.5 16Z" fill="url(#logoGrad)"/>
+            </svg>
+            <span>Revive</span>
+          </a>
+          <p>The intuitive AI dream journal and reflection companion for iOS. Record, decode, and transform your subconscious nightscapes.</p>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Legal</h4>
+          <ul class="footer-links">
+            <li><a href="./privacy-policy/">Privacy Policy</a></li>
+            <li><a href="./terms-and-conditions/">Terms &amp; Conditions</a></li>
+            <li><a href="./privacy-policy/#section-4">Data Practices</a></li>
+            <li><a href="./privacy-policy/#section-8">Your Privacy Rights</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Product</h4>
+          <ul class="footer-links">
+            <li><a href="#features">Core Features</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="./support/">Support Center</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-heading">Support &amp; Contact</h4>
+          <ul class="footer-links">
+            <li><a href="mailto:reviveappsupport@gmail.com">reviveappsupport@gmail.com</a></li>
+            <li><a href="./support/#account-deletion">Account Deletion</a></li>
+            <li><a href="./support/#subscriptions">Subscription Help</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div class="footer-disclaimer">
+          Revive is designed for personal reflection and entertainment. It does not provide medical, psychological, diagnostic, or therapeutic advice.
+        </div>
+        <div>
+          &copy; 2026 Revive. All rights reserved.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <button class="back-to-top" aria-label="Back to top" id="backToTopBtn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M18 15l-6-6-6 6"/>
+    </svg>
+  </button>
+
+  <script src="./assets/js/main.js"></script>
+</body>
+</html>
