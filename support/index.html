@@ -117,54 +117,6 @@
       flex-shrink: 0;
       margin-top: 2px;
     }
-    .faq-list {
-      max-width: 860px;
-      margin: 0 auto 5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .faq-item {
-      background: var(--surface-glass);
-      border: 1px solid var(--surface-glass-border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      transition: all var(--transition-fast);
-    }
-    .faq-question {
-      width: 100%;
-      padding: 1.25rem 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      background: none;
-      border: none;
-      color: var(--text-primary);
-      font-family: var(--font-heading);
-      font-size: 1.05rem;
-      font-weight: 600;
-      text-align: left;
-      cursor: pointer;
-    }
-    .faq-icon {
-      transition: transform var(--transition-fast);
-      color: var(--primary-light);
-      flex-shrink: 0;
-    }
-    .faq-item.active .faq-icon {
-      transform: rotate(180deg);
-    }
-    .faq-answer {
-      display: none;
-      padding: 0 1.5rem 1.5rem;
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-    .faq-item.active .faq-answer {
-      display: block;
-    }
   </style>
 </head>
 <body>
@@ -360,78 +312,6 @@
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="container" id="faq">
-    <div style="text-align: center; margin-bottom: 2.5rem;">
-      <h2>Frequently Asked Questions</h2>
-      <p style="color: var(--text-muted);">Quick answers to common questions about Reverie</p>
-    </div>
-
-    <div class="faq-list">
-
-      <div class="faq-item">
-        <button class="faq-question" id="faq-1-btn">
-          <span>Are my dreams private and secure?</span>
-          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="faq-answer">
-          <p>Yes. Your dreams are private by default and are never made public or visible to other users without your explicit sharing action. We use encryption in transit and at rest, and we do not sell your personal data or use your dream text to train public AI models.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" id="faq-2-btn">
-          <span>Does deleting the app cancel my subscription?</span>
-          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="faq-answer">
-          <p>No. Deleting the Reverie app from your iPhone does not cancel an active subscription. Because payments are handled through Apple, you must cancel your subscription via your iOS device: Settings &gt; Apple ID &gt; Subscriptions &gt; Reverie &gt; Cancel Subscription.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" id="faq-3-btn">
-          <span>How do I request a refund?</span>
-          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="faq-answer">
-          <p>Since all iOS transactions and subscriptions are billed through Apple's App Store, Reverie does not have direct access to your payment card or billing mechanism. To request a refund, visit Apple's official portal at <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">reportaproblem.apple.com</a>.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" id="faq-4-btn">
-          <span>Is Reverie's AI interpretation a form of therapy or diagnosis?</span>
-          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="faq-answer">
-          <p>No. Reverie is designed purely for personal reflection and entertainment. It does not provide medical, psychological, psychiatric, or therapeutic advice, nor does it diagnose or treat any health condition. If your sleep or dreams cause distress, please consult a healthcare professional.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" id="faq-5-btn">
-          <span>How can I delete individual dreams or my whole account?</span>
-          <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-        </button>
-        <div class="faq-answer">
-          <p>You can delete individual dreams directly within your dream archive list inside the app. For full account deletion, you can tap Delete Account in the app settings or email us at <a href="mailto:reverieappsupport@gmail.com">reverieappsupport@gmail.com</a>. We will process your deletion within 30 days.</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
@@ -461,7 +341,6 @@
           <ul class="footer-links">
             <li><a href="../#features">Core Features</a></li>
             <li><a href="../#how-it-works">How It Works</a></li>
-            <li><a href="../#faq">FAQ</a></li>
             <li><a href="./">Support Center</a></li>
           </ul>
         </div>
