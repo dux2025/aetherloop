@@ -1,5 +1,5 @@
 /**
- * Revive - Interactive Scripts
+ * Reverie - Interactive Scripts
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // 5. Copy Email Helper
-  window.copyEmail = function(email = 'reviveappsupport@gmail.com') {
+  window.copyEmail = function(email = 'reverieappsupport@gmail.com') {
     navigator.clipboard.writeText(email).then(() => {
       window.showToast(`Email copied: ${email}`);
     }).catch(() => {
